@@ -17,7 +17,7 @@ function handleSubmit(e) {
         return;
     }
 
-converter();
+    converter();
 };
 
 function converter() {
@@ -25,9 +25,12 @@ function converter() {
         valueConverted = inputValue.value * 5.31;
         result.innerHTML = valueFormatter('pt-BR', 'EUR');
 
-    }else if (selectedCurrency.value === 'dol'){
+        animateResult();
+    } else if (selectedCurrency.value === 'dol') {
         valueConverted = inputValue.value * 4.95;
         result.innerHTML = valueFormatter('en-US', 'USD');
+
+        animateResult();
     }
 
     inputValue.value = '';
@@ -35,6 +38,13 @@ function converter() {
 };
 
 function valueFormatter(locale, currency) {
-    const value = valueConverted.toLocaleString(`${locale}`, {style: `currency`, currency: `${currency}` });
+    const value = valueConverted.toLocaleString(`${locale}`, {style: `currency`, currency: `${currency}`});
     return `<span>💰</span> ${value} <span>💰</span>`;
-}
+};
+
+function animateResult() {
+    return result.animate([
+        {transform: 'translateY(-150px)'},
+        {transform: 'translateY(0px)'},
+    ], {duration: 600});
+};
